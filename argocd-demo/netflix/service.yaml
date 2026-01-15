@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-app-np
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 4000
     targetPort: 80

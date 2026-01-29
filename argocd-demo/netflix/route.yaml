@@ -6,7 +6,7 @@ metadata:
   labels:
     app: my-app-np
     app.kubernetes.io/instance: new-netflix
-  name: netflix-svc
+  name: netflix-route
   namespace: netflix-new
 spec:
   host: netflix-svc-netflix-new.apps.uatcluster.kuwaitnet.lab

@@ -7,7 +7,7 @@ metadata:
     app: my-app-np
     app.kubernetes.io/instance: new-netflix
   name: netflix-route
-  namespace: netflix-new
+  namespace: netflix
 spec:
   host: netflix-svc-netflix-new.apps.uatcluster.kuwaitnet.lab
   port:

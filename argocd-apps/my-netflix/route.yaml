@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: my-app-np
+    app.kubernetes.io/instance: new-netflix
+  name: netflix-route
+  namespace: netflix
+spec:
+  host: netflix-svc-netflix-new.apps.uatcluster.kuwaitnet.lab
+  port:
+    targetPort: 80
+  to:
+    kind: Service
+    name: netflix-svc
+    weight: 100
+  wildcardPolicy: None

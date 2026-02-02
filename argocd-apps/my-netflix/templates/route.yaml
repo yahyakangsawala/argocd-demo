@@ -7,9 +7,9 @@ metadata:
     app: my-app-np
     app.kubernetes.io/instance: new-netflix
   name: netflix-route
-  namespace: netflix
+  namespace: my-netflix
 spec:
-  host: netflix-svc-netflix-new.apps.uatcluster.kuwaitnet.lab
+  host: netflix-svc-my-netflix.apps.uatcluster.kuwaitnet.lab
   port:
     targetPort: 80
   to:

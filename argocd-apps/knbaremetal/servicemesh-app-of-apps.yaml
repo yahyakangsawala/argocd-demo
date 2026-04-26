@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: service-mesh-app-of-apps-knbaremetal
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: argocd/apps/knbaremetal
+    repoURL: https://github.com/yahyakangsawala/argocd-demo.git
+    targetRevision: master
+  #syncPolicy:
+  #  automated:
+  #    prune: false
+  #    selfHeal: true

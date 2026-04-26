@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gateways-knbaremetal
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: knbaremetal
+        url: https://api.knbaremetal.kuwaitnet.lab:6443
+        values:
+          name: ingressgateway-knbaremetal
+          chartPath: gateway
+          valuesFile: values-ingress-knbaremetal.yaml
+      - cluster: knbaremetal
+        url: https://api.knbaremetal.kuwaitnet.lab:6443
+        values:
+          name: egressgateway-knbaremetal
+          chartPath: gateway
+          valuesFile: values-egress-knbaremetal.yaml          
+  template:
+    metadata:
+      name: '{{values.name}}'
+      annotations:
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+        argocd.argoproj.io/sync-options: Prune=false
+      labels:
+        gitops: operator
+    spec:
+      project: default
+      ignoreDifferences:
+        - group: ""
+          kind: ServiceAccount
+          jsonPointers:
+            - /imagePullSecrets
+      # syncPolicy:
+      #   automated:
+      #     prune: false
+      #     selfHeal: true
+      #   retry:
+      #     limit: 5
+      #     backoff:
+      #       duration: 5s
+      #       factor: 2
+      #       maxDuration: 20m
+      source:
+        repoURL: 'https://github.com/yahyakangsawala/argocd-demo.git'
+        targetRevision: master
+        path: '{{values.chartPath}}'
+        helm:
+          valueFiles:
+            - '{{ values.valuesFile }}'
+      destination:
+        server: https://api.knbaremetal.kuwaitnet.lab:6443
+        namespace: istio-system

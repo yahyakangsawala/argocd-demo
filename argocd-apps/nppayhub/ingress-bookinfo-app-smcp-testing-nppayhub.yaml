@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ingress-book-info-app-smcp-testing-nppayhub
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: nppayhub
+        url: https://api.nppayhub.corp.bbynuat.com:6443
+        values:
+          name: bookinfo-application-nppayhub
+          chartPath: appplications-demo/ingress/bookinfo
+          valuesFile: values-bookinfo-app-smcp-testing-nppayhub.yaml
+      - cluster: nppayhub
+        url: https://api.nppayhub.corp.bbynuat.com:6443
+        values:
+          name: istio-ingress-resources-nppayhub
+          chartPath: istio-apps-resources
+          valuesFile: values-ingress-app-smcp-testing-nppayhub.yaml
+  template:
+    metadata:
+      name: '{{values.name}}'
+      annotations:
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+        argocd.argoproj.io/sync-options: Prune=false
+      labels:
+        gitops: operator
+    spec:
+      project: default
+      # syncPolicy:
+      #   automated:
+      #     prune: false
+      #     selfHeal: true
+      #   retry:
+      #     limit: 5
+      #     backoff:
+      #       duration: 5s
+      #       factor: 2
+      #       maxDuration: 20m
+      source:
+        repoURL: https://swan02.corp.boubyan.com:7991/scm/opt/np-servicemesh.git
+        targetRevision: master
+        path: '{{values.chartPath}}'
+        helm:
+          valueFiles:
+            - '{{ values.valuesFile }}'
+      destination:
+        server: https://api.nppayhub.corp.bbynuat.com:6443
+        namespace: openshift-gitops

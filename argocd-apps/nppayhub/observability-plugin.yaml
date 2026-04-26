@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-plugin-nppayhub
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: 'https://api.nppayhub.corp.bbynuat.com:6443'
+  project: default
+  source:
+    helm:
+      valueFiles:
+        - values.yaml
+    path: observability-plugin
+    repoURL: 'https://swan02.corp.boubyan.com:7991/scm/opt/np-servicemesh.git'
+    targetRevision: master
+  # syncPolicy:
+  #   automated:
+  #     selfHeal: true
+  #   retry:
+  #     backoff:
+  #       duration: 5s
+  #       factor: 2
+  #       maxDuration: 20m
+  #     limit: 5

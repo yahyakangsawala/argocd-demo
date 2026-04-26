@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istio-cni
+description: A simple Helm chart for IstioCNI custom resource
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Sarafou Balde
+    email: sbalde@redhat.com
+    url: https://www.redhat.com

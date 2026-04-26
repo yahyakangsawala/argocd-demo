@@ -1,0 +1,11 @@
+{{- if .Values.namespace.tocreate -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    istio-discovery: {{ .Values.istioInstance }}
+    istio.io/rev: {{ .Values.istioInstance }}
+  annotations:
+    openshift.io/description: app namespace
+{{- end }}

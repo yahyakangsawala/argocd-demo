@@ -1,0 +1,11 @@
+# Read only role to allow collectotr CR resources read
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8sattributes-otel-collector-{{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
+rules:
+  - apiGroups: ['*']
+    resources: ['pods', 'namespaces', 'replicasets']
+    verbs: ['get', 'watch', 'list']
+---

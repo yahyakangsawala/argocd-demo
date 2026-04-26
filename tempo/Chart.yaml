@@ -1,0 +1,10 @@
+apiVersion: v2
+name: tempo
+description: A Helm chart for deploying Tempo Stack with Istio integration on OpenShift
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Sarafou Balde
+    email: sbalde@redhat.com
+    url: https://www.redhat.com

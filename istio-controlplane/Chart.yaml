@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istio-controlplane
+description: Simple Helm chart for Istio control plane resources
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Sarafou Balde
+    email: sbalde@redhat.com
+    url: https://www.redhat.com

@@ -1,0 +1,11 @@
+# Tell clients (Envoy proxies) in the mesh to use Istio-managed mTLS when calling any service with a .cluster.local domain name
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: default
+  namespace: {{ .Values.namespace }}
+spec:
+  host: '*.cluster.local'
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

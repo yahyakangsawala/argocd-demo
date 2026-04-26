@@ -1,0 +1,11 @@
+# application
+namespace: 
+  tocreate: false
+  name: app-testing-knbaremetal
+istioInstance: istio-knbaremetal
+gateway:
+  name: ingressgateway
+  namespace: istio-gateway-knbaremetal
+  host: bookinfo-app-testing.apps.knbaremetal.kuwaitnet.lab
+tls:
+  enable: true

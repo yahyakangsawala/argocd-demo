@@ -1,0 +1,12 @@
+# Configures clients calling user-collector.istio-$instance.svc.cluster.local to not use TLS.
+# This matches with the PERMISSIVE mode on port 4317: clients can connect without mTLS.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: collector
+  namespace: {{ .Values.namespace }}
+spec:
+  host: collector-collector.{{ .Values.namespace }}.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE

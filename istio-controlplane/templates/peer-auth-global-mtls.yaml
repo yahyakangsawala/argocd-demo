@@ -1,0 +1,9 @@
+# Force SSL on the receiving end, meaning Envoy proxies only accept SSL
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: istio-peerauth
+  namespace: {{ .Values.namespace }}
+spec:
+  mtls:
+    mode: STRICT

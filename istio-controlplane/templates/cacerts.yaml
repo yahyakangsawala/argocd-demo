@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cacerts
+  namespace: {{ .Values.namespace }}
+type: Opaque
+stringData:
+  ca-cert.pem: |
+    {{- .Values.secret.caCertPem | nindent 4 }}
+  ca-key.pem: |
+    {{- .Values.secret.caKeyPem | nindent 4 }}
+  cert-chain.pem: |
+    {{- .Values.secret.certChainPem | nindent 4 }}
+  root-cert.pem: |
+    {{- .Values.secret.certRoot | nindent 4 }}

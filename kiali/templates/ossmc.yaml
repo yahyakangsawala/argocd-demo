@@ -1,0 +1,13 @@
+# Extension to OpenShift Container Platform web console that provides visibility into your Service Mesh
+# Note: only one Kiali thus one Mesh Control plane is supported
+apiVersion: kiali.io/v1alpha1
+kind: OSSMConsole
+metadata:
+  name: {{ .Values.ossmconsole.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  version: default
+  kiali:
+    serviceName: {{ .Values.ossmconsole.kiali.serviceName }}
+    servicePort: {{ .Values.ossmconsole.kiali.servicePort }}    
+#    serviceNamespace: {{ .Values.ossmconsole.kiali.serviceNamespace }}

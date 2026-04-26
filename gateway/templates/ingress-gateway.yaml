@@ -1,0 +1,34 @@
+{{- if eq .Values.gateway.type "ingress"  -}}
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Values.gateway.name }}-gateway
+  namespace: {{ .Values.namespace.name }}
+spec:
+  # The selector matches the ingress gateway pod labels.
+  # If you installed Istio using Helm following the standard documentation, this would be "istio=ingress"
+  selector:
+    istio: {{ .Values.gateway.name }}
+  servers:
+    {{- if .Values.tls.enable }}
+    # TLS termination on Gateway
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: {{ .Values.tls.mode }}
+        credentialName: {{ .Values.tls.credentialName }}
+      hosts:
+        - {{ .Values.gateway.hosts | quote }}            
+    {{- else }}
+  # No TLS termination on Gateway, meaning the termination is done on the Openshift Ingress Level (Edge route)  
+    - hosts:
+        - {{ .Values.gateway.hosts | quote }}
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+    {{- end }}
+{{- end }}
+

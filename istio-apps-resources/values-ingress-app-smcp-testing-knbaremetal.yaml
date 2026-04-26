@@ -1,0 +1,9 @@
+# istio resources values
+gateway:
+  type: ingress
+  name: ingressgateway
+  host: bookinfo-app-testing.apps.knbaremetal.kuwaitnet.lab
+  namespace: istio-gateway-knbaremetal
+service: 
+  name: productpage
+  namespace: app-testing-knbaremetal

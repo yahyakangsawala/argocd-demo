@@ -1,0 +1,26 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: bookinfo
+  namespace: {{ .Values.gateway.namespace }}
+spec:
+  host: {{ .Values.gateway.host }}
+  to:
+    kind: Service
+    name: {{ .Values.gateway.name }}
+    weight: 100
+  {{- if .Values.tls.enable }}
+  # TLS termination on Gateway Level, so we create a passthrough route   
+  port:
+    targetPort: https
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect   
+  {{- else }}
+  # No TLS termination on Gateway, meaning the termination is done on the Openshift Ingress Level (Edge route)   
+  port:
+    targetPort: http2
+  tls:
+    termination: edge
+  {{- end }}  
+  wildcardPolicy: None

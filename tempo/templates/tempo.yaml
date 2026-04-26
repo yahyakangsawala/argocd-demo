@@ -1,0 +1,80 @@
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoStack
+metadata:
+  name: {{ .Values.tempo.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: tempo-operator
+    tempo.grafana.com/distribution: openshift
+spec:
+  hashRing:
+    memberlist: {}
+  images: {}
+  limits:
+    global:
+      ingestion: {}
+      query:
+        maxSearchDuration: 0s
+  managementState: Managed
+  observability:
+    grafana:
+      instanceSelector: {}
+    metrics: {}
+    tracing:
+      jaeger_agent_endpoint: localhost:6831
+  replicationFactor: {{ .Values.tempo.replicationFactor }}
+  resources: {}
+  retention:
+    global:
+      traces: {{ .Values.tempo.retention }}
+  search:
+    defaultResultLimit: 20
+    maxDuration: 0s
+  serviceAccount: tempo-tempo
+  storage:
+    secret:
+      name: {{ .Values.storage.secretName }}
+      type: {{ .Values.storage.type }}
+    tls:
+      enabled: false
+  storageSize: {{ .Values.tempo.storageSize }}
+  template:
+    compactor:
+      replicas: {{ .Values.tempo.replicas.compactor }}
+    distributor:
+      component:
+        replicas: {{ .Values.tempo.replicas.distributor }}
+      tls:
+        enabled: false
+    gateway:
+      component:
+        replicas: {{ .Values.tempo.replicas.gateway }}
+      enabled: true
+      ingress:
+        route:
+          termination: reencrypt
+        type: route
+    ingester:
+      replicas: {{ .Values.tempo.replicas.ingester }}
+    querier:
+      replicas: {{ .Values.tempo.replicas.querier }}
+    queryFrontend:
+      component:
+        replicas: {{ .Values.tempo.replicas.queryFrontend }}
+      jaegerQuery:
+        enabled: true
+        ingress:
+          route: {}
+        monitorTab:
+          enabled: true
+          prometheusEndpoint: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+        servicesQueryDuration: 72h0m0s
+        tempoQuery: {}
+  tenants:
+    authentication:
+      {{- range .Values.tenants }}
+      - tenantId: {{ .id }}
+        tenantName: {{ .name }}
+      {{- end }}
+    mode: openshift
+  timeout: 30s

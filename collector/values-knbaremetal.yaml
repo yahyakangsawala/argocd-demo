@@ -1,0 +1,8 @@
+# Default values for collector
+namespace: istio-system
+
+tempo:
+  # tempo endpoint
+  endpoint: tempo-tempo-gateway.istio-tempo.svc.cluster.local:8090
+  # Istio tempo tenant name, matches istio instance
+  tenantName: istio-knbaremetal

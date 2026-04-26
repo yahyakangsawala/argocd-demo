@@ -1,0 +1,33 @@
+# Namespace configurations
+namespace: istio-system  # Kubernetes namespace for Kiali, it is the same as the controlplane
+
+# Kiali configuration
+kiali:
+  name: kiali        # Name of the Kiali deployment
+  # Tempo tracing configuration
+  tracing:
+    enabled: true               # Enable tracing integration in Kiali
+    provider: tempo             # Tracing provider (Tempo)
+
+# Tempo tenant configuration  
+tempo:
+  tenant: 
+    name: istio-knbaremetal  # Tempo tenant name (matches the istio instance)
+    id: "f7a2d65c-9112-4c63-b17c-5bc87b0c8f47"   # Unique tenant identifier (generated randomly) during tempo configuration
+    org_id: "1"                 # Organization ID for tenant segregation
+    
+  # Internal URLs (within cluster)
+  internal:
+    base_url: tempo-tempo-gateway.istio-tempo.svc.cluster.local:8080   # Internal service URL for Tempo gateway
+    
+  # External URLs (public routes) for Tempo gateway
+  external:
+    base_url: tempo-tempo-gateway-istio-tempo.apps.knbaremetal.kuwaitnet.lab   # External/public URL for Tempo gateway
+
+#ossm console
+ossmconsole:
+  name: ossmconsole             # Name of the OSSMConsole deployment
+  kiali:
+    serviceName: kiali
+#    serviceNamespace:  istio-system       # Kiali service name (used for OSSMConsole integration), only one Kiali instnce is supported
+    servicePort: 20001          # Kiali service port

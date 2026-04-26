@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name:  curl-ns-staging
+  labels:
+    istio.io/rev: istio-staging
+    istio-discovery: istio-staging
+  annotations:
+    openshift.io/description: app staging namespace

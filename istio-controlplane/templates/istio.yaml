@@ -1,0 +1,40 @@
+kind: Istio
+apiVersion: sailoperator.io/v1
+metadata:
+  name: {{ .Values.istio.meshName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  namespace: {{ .Values.namespace }}
+  updateStrategy:
+    inactiveRevisionDeletionGracePeriodSeconds: 30
+    type: InPlace
+  values:
+    global:
+      istioNamespace: {{ .Values.namespace }}
+      logAsJson: false
+      logging:
+        level: {{ .Values.istio.logging.level }}
+      platform: openshift      
+      proxy:
+        resources:
+          limits:
+            cpu: {{ .Values.istio.resources.limits.cpu }}
+            memory: {{ .Values.istio.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.istio.resources.requests.cpu }}
+            memory: {{ .Values.istio.resources.requests.memory }}  
+    pilot:
+      autoscaleEnabled: false
+      replicaCount: {{ .Values.istio.replicas }}
+    meshConfig:
+      defaultProviders:
+        tracing:
+          - otel
+      discoverySelectors:
+        - matchLabels:
+            istio-discovery: {{ .Values.istio.meshName }}
+      extensionProviders:
+        - name: otel
+          opentelemetry:
+            port: {{ .Values.collector.port }}
+            service: collector-collector.{{ .Values.namespace }}.svc.cluster.local

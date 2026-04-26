@@ -1,0 +1,19 @@
+{{- if eq .Values.gateway.type "ingress"  -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: rewiews-canary-destination-rule
+  namespace: {{ .Values.service.namespace }}  
+spec:
+  host: reviews
+  subsets:
+    - name: v1
+      labels:
+        version: v1 
+    - name: v2
+      labels:
+        version: v2
+    - name: v3
+      labels:
+        version: v3
+{{- end -}}               

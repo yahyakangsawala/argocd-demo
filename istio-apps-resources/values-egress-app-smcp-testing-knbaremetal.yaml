@@ -1,0 +1,8 @@
+gateway:
+  type: egress
+  name: egressgateway
+  host: example-registry-quay-quay-enterprise.apps.knbaremetal.kuwaitnet.lab
+  namespace: app-gateway-testing
+service: 
+  name: quay-test
+  namespace: app-testing

@@ -1,0 +1,38 @@
+apiVersion: kiali.io/v1alpha1
+kind: Kiali
+metadata:
+  name: {{ .Values.kiali.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  version: default
+  istio_namespace: {{ .Values.namespace }}
+  deployment:
+    logger:
+      log_level: info  
+  external_services:
+    prometheus:
+      auth:
+        insecure_skip_verify: true      
+        type: bearer
+        use_kiali_token: true
+      thanos_proxy:
+        enabled: true
+      url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+    tracing:    
+      enabled: {{ .Values.kiali.tracing.enabled }}
+      provider: {{ .Values.kiali.tracing.provider }}
+      use_grpc: false
+      tempo_config:
+        org_id: "{{ .Values.tempo.tenant.org_id }}"
+        datasource_uid: "{{ .Values.tempo.tenant.datasource_uid }}"
+        url_format: "jaeger"
+      internal_url: https://{{ .Values.tempo.internal.base_url }}/api/traces/v1/{{ .Values.tempo.tenant.name }}/tempo 
+      external_url: https://{{ .Values.tempo.external.base_url }}/api/traces/v1/{{ .Values.tempo.tenant.name }}/search
+      health_check_url: https://{{ .Values.tempo.internal.base_url }}/api/traces/v1/{{ .Values.tempo.tenant.name }}/tempo/api/echo
+      auth: 
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+        insecure_skip_verify: true
+        type: bearer
+        use_kiali_token: true
+      tempo_config:
+         url_format: "jaeger"

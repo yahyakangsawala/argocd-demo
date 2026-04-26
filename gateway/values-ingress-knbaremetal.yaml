@@ -1,0 +1,22 @@
+# application
+namespace: 
+  tocreate: false
+  name: istio-gateway-knbaremetal
+  podmonitorinstall: true
+  networkpolicy: true
+istioInstance: istio-knbaremetal
+gateway:
+  name: ingressgateway
+  type: ingress
+  hosts: "*"
+  resources:
+    limits:
+      cpu: 500m                 # Maximum CPU that each gateway pod can use
+      memory: 128Mi             # Maximum memory that each gateway pod can use
+    requests:
+      cpu: 5m                   # Minimum guaranteed CPU for each gateway pod
+      memory: 64Mi              # Minimum guaranteed memory for each gateway pod  
+tls:
+  enable: true
+  mode: SIMPLE
+  credentialName: tls-secret

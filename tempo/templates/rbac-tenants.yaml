@@ -1,0 +1,17 @@
+# Cluster Roles to allow collectors to write in the defined tempo Tenant
+{{- range .Values.tenants }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traces-writer-{{ .name }}
+rules:
+  - apiGroups:
+      - tempo.grafana.com
+    resourceNames:
+      - traces
+    resources:
+      - {{ .name }}
+    verbs:
+      - create
+{{- end }}

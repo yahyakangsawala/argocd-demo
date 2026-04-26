@@ -1,0 +1,36 @@
+# Tempo namespace
+namespace: tempo   # Kubernetes namespace where Tempo will be deployed
+
+# Tempostack configuration 
+tempo:
+  name: simplest              # Name of the Tempo deployment
+  replicationFactor: 1     # Number of data replicas (higher improves resilience)
+  # persistent storage 
+  storageSize: 50Gi         # Size of persistent volume for Tempo local data
+  retention: 48h0m0s       # Retention period for traces (48 hours in this case)
+
+  # Components replicas
+  replicas:
+    compactor: 1           # Number of Tempo compactor pods
+    distributor: 1         # Number of Tempo distributor pods
+    gateway: 1             # Number of Tempo gateway pods (exposes Tempo API)
+    ingester: 1            # Number of Tempo ingester pods (writes traces to storage)
+    querier: 1             # Number of Tempo querier pods (reads traces from storage)
+    queryFrontend: 1       # Number of Tempo query frontend pods (caches/optimizes queries)
+  
+# S3 Storage configuration
+storage:
+  type: s3                 # Backend storage type (S3 in this case deployed with ODF)
+  secretName: tempo-odf-secret   # Name of the Kubernetes secret holding S3 credentials
+  bucket: tempo-knbaremetal-153fb723-b5d2-45d7-b0e0-af5691019117  # S3 bucket for Tempo trace storage
+  endpoint: s3.openshift-storage.svc:443   # S3 service endpoint (internal cluster service)
+  accessKeyId: "PhYpxSzy1fd3EzZmPtbl"          # S3 access key ID (from secret)
+  accessKeySecret: "o0dhnb0Kt9hjHQNF0La/UQoGP0AgbQ2pMBzH9/TN" # S3 secret key (from secret)
+  storageClassName: openshift-storage.noobaa.io # Storage class used for persistent volumes
+
+# Tenants configuration
+#tenants:
+#  - name: istio-nppayhub   # Tenant name ( matches the Istio instance)
+#    id: f7a2d65c-9112-4c63-b17c-5bc87b0c8f47   # Unique identifier for this tenant
+#  # - name: another-tenant      # Example of an additional tenant
+# #   id: generate-a-random-id

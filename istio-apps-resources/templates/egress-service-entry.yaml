@@ -1,0 +1,16 @@
+{{- if eq .Values.gateway.type "egress"  -}}
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: {{ .Values.service.name }}-service-entry
+  namespace: {{ .Values.service.namespace }}  
+spec:
+  hosts:
+  - {{ .Values.gateway.host | quote }}
+  ports:
+    - number: 443
+      name: tls
+      protocol: TLS
+  location: MESH_EXTERNAL
+  resolution: DNS
+{{- end }}     

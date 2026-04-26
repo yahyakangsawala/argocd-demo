@@ -1,0 +1,39 @@
+{{- if eq .Values.gateway.type "egress"  -}}
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: {{ .Values.service.name }}-virtual-service
+  namespace: {{ .Values.service.namespace }}
+spec:
+  hosts:
+  - {{ .Values.gateway.host | quote }}
+  gateways:
+    - mesh
+    - {{ .Values.gateway.namespace }}/{{ .Values.gateway.name }}-gateway
+  tls:
+    - match:
+        - gateways:
+            - mesh
+          port: 443
+          sniHosts:
+          - {{ .Values.gateway.host }}
+      route:
+        - destination:
+            host: {{ .Values.gateway.name }}.{{ .Values.gateway.namespace }}.svc.cluster.local
+            subset: {{ .Values.service.name }}
+            port:
+              number: 443
+          weight: 100
+    - match:
+        - gateways:
+            - {{ .Values.gateway.namespace }}/{{ .Values.gateway.name }}-gateway
+          port: 443
+          sniHosts:
+          - {{ .Values.gateway.host }}
+      route:
+        - destination:
+            host: {{ .Values.gateway.host }}
+            port:
+              number: 443
+          weight: 100
+{{- end }}                   

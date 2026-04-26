@@ -1,0 +1,2 @@
+# Default values for istio-cni
+namespace: istio-cni

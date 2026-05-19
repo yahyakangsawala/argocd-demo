@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dummy-config
+  namespace: default
+data:
+  test: "argocd"

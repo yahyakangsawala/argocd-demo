@@ -11,7 +11,7 @@ spec:
   source:
     path: argocd/apps/knbaremetal
     repoURL: https://github.com/yahyakangsawala/argocd-demo.git
-    targetRevision: master
+    targetRevision: main
   #syncPolicy:
   #  automated:
   #    prune: false

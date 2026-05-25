@@ -82,7 +82,7 @@ secret:
         cLiFVpT5dBKccXQbgbct3w==
         -----END PRIVATE KEY-----
         
-    certChainPem: |- 
+  certChainPem: |- 
         -----BEGIN CERTIFICATE-----
         MIIFKTCCBBGgAwIBAgITQgAAAEaM4oRjYHYX8wAAAAAARjANBgkqhkiG9w0BAQsF
         ADBHMRMwEQYKCZImiZPyLGQBGRYDbGFiMRkwFwYKCZImiZPyLGQBGRYJa3V3YWl0

@@ -29,8 +29,8 @@ storage:
   storageClassName: openshift-storage.noobaa.io # Storage class used for persistent volumes
 
 # Tenants configuration
-#tenants:
-#  - name: istio-nppayhub   # Tenant name ( matches the Istio instance)
-#    id: f7a2d65c-9112-4c63-b17c-5bc87b0c8f47   # Unique identifier for this tenant
+tenants:
+  - name: istio-nppayhub   # Tenant name ( matches the Istio instance)
+    id: f7a2d65c-9112-4c63-b17c-5bc87b0c8f47   # Unique identifier for this tenant
 #  # - name: another-tenant      # Example of an additional tenant
 # #   id: generate-a-random-id

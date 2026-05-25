@@ -44,7 +44,11 @@ spec:
       #       maxDuration: 20m
       source:
         repoURL: https://github.com/yahyakangsawala/argocd-demo.git
+<<<<<<< HEAD
         targetRevision: main
+=======
+        targetRevision: main 
+>>>>>>> 0e2ff8e (a)
         path: '{{values.chartPath}}'
         helm:
           valueFiles:

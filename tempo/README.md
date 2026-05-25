@@ -70,7 +70,7 @@ spec:
         - values-npt24c01.yaml
     path: tempo
     repoURL: 'https://swan02.corp.boubyan.com:7991/scm/opt/np-servicemesh.git'
-    targetRevision: master
+    targetRevision: main
   syncPolicy:
     automated:
       selfHeal: true

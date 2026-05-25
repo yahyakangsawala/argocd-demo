@@ -52,7 +52,7 @@ secret:
         OjwLPq18wWGyYpBM39x4GCMMLN836gY5sIs7cYk=
         -----END CERTIFICATE-----
         
-    caKeyPem: |-
+  caKeyPem: |-
         -----BEGIN PRIVATE KEY-----
         MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDPJOhyYWeqEBrF
         1k1mctR7JfZ3CHojSeOwrc7M0d7Wq5l91jkhGfI9FwndxBdns416ADxeZhUFn7BX
@@ -135,7 +135,7 @@ secret:
         mcMeP1O5eDcrXtRfKfXnne8Vfg2Ku2iyx6MS4I0s6j8VgNS9PQ==
         -----END CERTIFICATE-----
         
-  certRoot: |- 
+    certRoot: |- 
         -----BEGIN CERTIFICATE-----
         MIIDgTCCAmmgAwIBAgIQcrxOgGtbR7hHdjaAi1KX1DANBgkqhkiG9w0BAQsFADBH
         MRMwEQYKCZImiZPyLGQBGRYDbGFiMRkwFwYKCZImiZPyLGQBGRYJa3V3YWl0bmV0

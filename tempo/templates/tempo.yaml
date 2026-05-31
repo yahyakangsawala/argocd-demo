@@ -36,7 +36,7 @@ spec:
       name: {{ .Values.storage.secretName }}
       type: {{ .Values.storage.type }}
     tls:
-      enabled: true
+      enabled: false
   storageSize: {{ .Values.tempo.storageSize }}
   template:
     compactor:

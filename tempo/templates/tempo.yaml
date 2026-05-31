@@ -37,6 +37,7 @@ spec:
       type: {{ .Values.storage.type }}
     tls:
       enabled: true
+      caName: openshift-service-ca.crt
   storageSize: {{ .Values.tempo.storageSize }}
   template:
     compactor:

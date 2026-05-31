@@ -21,7 +21,7 @@ tempo:
 # S3 Storage configuration
 storage:
   type: s3                 # Backend storage type (S3 in this case deployed with ODF)
-  secretName: tempo-odf-secret   # Name of the Kubernetes secret holding S3 credentials
+  secretName: tempo-bucket   # Name of the Kubernetes secret holding S3 credentials
   bucket: tempo-knbaremetal-153fb723-b5d2-45d7-b0e0-af5691019117  # S3 bucket for Tempo trace storage
   endpoint: s3.openshift-storage.svc:443   # S3 service endpoint (internal cluster service)
   accessKeyId: "PhYpxSzy1fd3EzZmPtbl"          # S3 access key ID (from secret)

@@ -45,7 +45,7 @@ spec:
       component:
         replicas: {{ .Values.tempo.replicas.distributor }}
       tls:
-        enabled: false
+        enabled: true
     gateway:
       component:
         replicas: {{ .Values.tempo.replicas.gateway }}

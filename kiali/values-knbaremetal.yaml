@@ -18,11 +18,11 @@ tempo:
     
   # Internal URLs (within cluster)
   internal:
-    base_url: tempo-tempo-gateway.istio-tempo.svc.cluster.local:8080   # Internal service URL for Tempo gateway
+    base_url: tempo-simplest-gateway.tempo.svc.cluster.local:8080   # Internal service URL for Tempo gateway
     
   # External URLs (public routes) for Tempo gateway
   external:
-    base_url: tempo-tempo-gateway-istio-tempo.apps.knbaremetal.kuwaitnet.lab   # External/public URL for Tempo gateway
+    base_url: tempo-simplest-gateway-tempo.apps.knbaremetal.kuwaitnet.lab   # External/public URL for Tempo gateway
 
 #ossm console
 ossmconsole:

@@ -57,3 +57,4 @@ spec:
       destination:
         server: https://api.knbaremetal.kuwaitnet.lab:6443
         namespace: istio-system
+# For testing
